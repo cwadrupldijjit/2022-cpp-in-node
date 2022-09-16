@@ -6,6 +6,9 @@
   "type": "module",
   "commonjs": "index.cjs",
   "scripts": {
+    "configure": "node-gyp configure",
+    "prebuild": "npm run configure",
+    "build": "node-gyp -j 16 build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "nan": "^2.16.0",
+    "node-gyp": "^9.1.0",
     "vitest": "^0.22.1"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }
