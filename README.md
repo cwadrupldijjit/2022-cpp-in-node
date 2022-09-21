@@ -50,6 +50,14 @@ If you'd prefer to run the program using the built-in debugger for VS Code, you 
 
 ### Debugging
 
+#### Node
+
+Thankfully, if you wish to debug Node and its normal interactions, you can just debug Node normally.  However, if you want to debug the C++, you cannot do that using the same debugging configuration (at least in VS Code at present).
+
+If you want to debug both, you will need to run the C++ debugging process and then attach to the Node process separately to debug the JavaScript.
+
+#### C++
+
 Since it's sometimes easiest to track down where bugs are coming from via a debugger, it might be crucial to have a debugger setup, particularly with the structure of C++ (or, at least, from past experience, C++ is hard to fix if you're not sure how to read the error messages or know where to go to make fixes).  Thankfully, you can do this by hooking up the debugger for your platform of choice.  The `.vscode/launch.json` has some configurations that you should be able to just run provided you already have the prerequisites from above and are using VS Code with the C/C++ extension installed.  In that case, browse the debug configuration dropdown in the debug panel on the left (or right if you switched it) and find the relevant operating system and toolchain.
 
 Otherwise, you might need to do some research on the tools that work best for you to debug.  I haven't done exhaustive testing with other IDEs and tooling.

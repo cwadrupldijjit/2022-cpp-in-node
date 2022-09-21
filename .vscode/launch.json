@@ -23,28 +23,6 @@
                 "DEBUG": "true"
             }
         },
-        /*
-            NOTE:  I could never really get this to work satisfactorily; may need to delete if it's
-            particularly broken...
-        */
-        // {
-        //     "name": "(MAC) Test C++ debugging with GDB",
-        //     "type": "cppdbg",
-        //     "request": "launch",
-        //     "MIMode": "lldb",
-        //     "externalConsole": false,
-        //     "args": [
-        //         "${workspaceFolder}/index.js"
-        //     ],
-        //     "cwd": "${workspaceFolder}",
-        //     "program": "${input:nodeLocationPosix}",
-        //     "environment": [
-        //         {
-        //             "name": "DEBUG",
-        //             "value": "true"
-        //         }
-        //     ]
-        // },
         {
             "name": "Attach debugger to Node",
             "processId": "${command:PickProcess}",
@@ -119,21 +97,6 @@
                 }
             ]
         },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "(LLDB/MAC) Launch c++ debug, 2...",
-            "args": [
-                "${workspaceFolder}/index.js"
-            ],
-            "preLaunchTask": "pnpm: build:dev",
-            "cwd": "${workspaceFolder}",
-            "program": "${input:nodeLocationPosix}",
-            "env": {
-                "DEBUG": "true"
-            }
-        },
-        
     ],
     // These inputs are meant to make it easier to point directly to the node executable, particularly
     // necessary because of the C++ debugging moreso than the JavaScript
