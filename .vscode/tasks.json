@@ -1,0 +1,113 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"command": "${workspaceFolder}/node_modules/.bin/pnpm",
+			"windows": {
+				"command": "${workspaceFolder}/node_modules/.bin/pnpm.CMD",
+			},
+			"group": "build",
+			"args": [
+				"configure",
+			],
+			"problemMatcher": [
+				"$gcc",
+				"$msCompile",
+			],
+			"label": "pnpm: configure",
+			"detail": "pnpm configure",
+		},
+		{
+			"type": "process",
+			"command": "${workspaceFolder}/node_modules/.bin/pnpm",
+			"windows": {
+				"command": "${workspaceFolder}/node_modules/.bin/pnpm.CMD",
+			},
+			"args": [
+				"rebuild:dev"
+			],
+			"group": "build",
+			"dependsOn": [
+				"pnpm: configure",
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": [
+				"$gcc",
+				"$msCompile",
+			],
+			"label": "pnpm: rebuild:dev",
+			"detail": "pnpm rebuild --debug",
+			"isBackground": false,
+		},
+		{
+			"type": "shell",
+			"command": "${workspaceFolder}/node_modules/.bin/pnpm",
+			"windows": {
+				"command": "${workspaceFolder}/node_modules/.bin/pnpm.CMD",
+			},
+			"args": [
+				"build:prod",
+			],
+			"group": "build",
+			"problemMatcher": [
+				"$gcc",
+				"$msCompile",
+			],
+			"label": "pnpm: rebuild",
+			"detail": "pnpm rebuild",
+			"dependsOn": [
+				"pnpm: configure",
+			],
+			"dependsOrder": "sequence",
+			"promptOnClose": true,
+		},
+		{
+			"type": "shell",
+			"command": "${workspaceFolder}/node_modules/.bin/pnpm",
+			"windows": {
+				"command": "${workspaceFolder}/node_modules/.bin/pnpm.CMD",
+			},
+			"args": [
+				"build:dev",
+			],
+			"group": "build",
+			"problemMatcher": [
+				"$gcc",
+				"$msCompile",
+			],
+			"label": "pnpm: build:dev",
+			"detail": "pnpm build --debug",
+			"dependsOn": [
+				"pnpm: configure",
+			],
+			"dependsOrder": "sequence",
+			"promptOnClose": true,
+			"isBackground": false
+		},
+		{
+			"type": "shell",
+			"command": "${workspaceFolder}/node_modules/.bin/pnpm",
+			"windows": {
+				"command": "${workspaceFolder}/node_modules/.bin/pnpm.CMD",
+			},
+			"args": [
+				"build:prod",
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true,
+			},
+			"problemMatcher": [
+				"$gcc",
+				"$msCompile",
+			],
+			"label": "pnpm: build",
+			"detail": "pnpm build:prod",
+			"dependsOn": [
+				"pnpm: configure",
+			],
+			"dependsOrder": "sequence",
+		}
+	]
+}

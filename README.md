@@ -26,9 +26,10 @@ Since C++ compilation is different per system, you will have to install the righ
   - XCode (which should install the `clang` cli)
 - Linux:
   - `gcc`
-  - Perhaps some C++ libraries that the system is missing (might end up being a trial-and-error problem)
+  - `gdb` (if you want to run it using VS Code)
+  - Some C++ libraries that the system might be missing (might end up installing what the errors suggest)
 
-The included `.vscode/c_cpp_properties.json` and `.vscode/launch.json` are for use with VS Code and the C++ extension (by Microsoft) from the extension marketplace.
+The included `.vscode/c_cpp_properties.json` and `.vscode/launch.json` are for use with VS Code and the [C++ extension (by Microsoft)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) from the extension marketplace.  If you want to use the tasks how they're currently set up in the project (and using VS Code), you will also need to install the [Tasks Shell Input extion](https://marketplace.visualstudio.com/items?itemName=augustocdias.tasks-shell-input) or replace anything that says `${input:nodeLocation*}` with the path to the node binary you want to use.  I strongly recommend that you restart your editor (or at least reload the window) after you've installed those extensions to be sure that everything has been set up correctly.
 
 ### Building
 
@@ -44,3 +45,23 @@ Simply start the program using Node:
 
 - For the CommonJS version, `node index.cjs`
 - For the ESM version, `node index.js`
+
+If you'd prefer to run the program using the built-in debugger for VS Code, you will need to follow the directions in the next section.
+
+### Debugging
+
+Since it's sometimes easiest to track down where bugs are coming from via a debugger, it might be crucial to have a debugger setup, particularly with the structure of C++ (or, at least, from past experience, C++ is hard to fix if you're not sure how to read the error messages or know where to go to make fixes).  Thankfully, you can do this by hooking up the debugger for your platform of choice.  The `.vscode/launch.json` has some configurations that you should be able to just run provided you already have the prerequisites from above and are using VS Code with the C/C++ extension installed.  In that case, browse the debug configuration dropdown in the debug panel on the left (or right if you switched it) and find the relevant operating system and toolchain.
+
+Otherwise, you might need to do some research on the tools that work best for you to debug.  I haven't done exhaustive testing with other IDEs and tooling.
+
+That said, the setup this project is using includes:
+
+- MSVS Build Tools on Windows (which comes with a debugger)
+- LLDB on Mac (which comes bundled with XCode)
+- GDB in Linux (which will need to be installed separately)
+
+As with many other languages, the debuggers rely on a debug-specific build to ensure that the compiled code maps to the source code.  The project's scripts pass the debug argument to node-gyp and that means that the code will build to the `build/Debug` folder instead of the `build/Release` folder.  Make sure you point to the correct executable with your debugger of choice if you intend to use it outside of the VS Code debugger.
+
+#### A note about the debugging setup for Linux
+
+I've had many struggles with making sure the version of Node is correct on Linux.  If you've installed a version of Node that is older, you need to make sure that it's not found on your PATH or if it is, there is another version available before it.  This project might not work at all for versions of Node prior to 18.

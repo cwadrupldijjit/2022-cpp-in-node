@@ -1,0 +1,160 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
+            "preLaunchTask": "pnpm: build:dev",
+            "runtimeArgs": [
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "DEBUG": "true"
+            }
+        },
+        /*
+            NOTE:  I could never really get this to work satisfactorily; may need to delete if it's
+            particularly broken...
+        */
+        // {
+        //     "name": "(MAC) Test C++ debugging with GDB",
+        //     "type": "cppdbg",
+        //     "request": "launch",
+        //     "MIMode": "lldb",
+        //     "externalConsole": false,
+        //     "args": [
+        //         "${workspaceFolder}/index.js"
+        //     ],
+        //     "cwd": "${workspaceFolder}",
+        //     "program": "${input:nodeLocationPosix}",
+        //     "environment": [
+        //         {
+        //             "name": "DEBUG",
+        //             "value": "true"
+        //         }
+        //     ]
+        // },
+        {
+            "name": "Attach debugger to Node",
+            "processId": "${command:PickProcess}",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "(LLDB/MAC) Launch c++ debug, 1...",
+            "args": [
+                "${workspaceFolder}/index.js"
+            ],
+            "preLaunchTask": "pnpm: build:dev",
+            "cwd": "${workspaceFolder}",
+            "program": "${input:nodeLocationPosix}",
+            "env": {
+                "DEBUG": "true"
+            }
+        },
+        {
+            "name": "(MSVS/WINDOWS) Launch c++ debug",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${input:nodeLocationWindows}",
+            "args": [
+                "${workspaceFolder}/index.js"
+            ],
+            "preLaunchTask": "pnpm: build:dev",
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "DEBUG",
+                    "value": "true"
+                }
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "(GCC/LINUX) Launch c++-enabled debug",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${input:nodeLocationPosix}",
+            "args": [
+                "${workspaceFolder}/index.js"
+            ],
+            "preLaunchTask": "pnpm: build:dev",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "DEBUG",
+                    "value": "true",
+                },
+            ],
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "(LLDB/MAC) Launch c++ debug, 2...",
+            "args": [
+                "${workspaceFolder}/index.js"
+            ],
+            "preLaunchTask": "pnpm: build:dev",
+            "cwd": "${workspaceFolder}",
+            "program": "${input:nodeLocationPosix}",
+            "env": {
+                "DEBUG": "true"
+            }
+        },
+        
+    ],
+    // These inputs are meant to make it easier to point directly to the node executable, particularly
+    // necessary because of the C++ debugging moreso than the JavaScript
+    "inputs": [
+        {
+            "id": "nodeLocationPosix",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "which node",
+                "useFirstResult": true,
+            },
+        },
+        {
+            "id": "nodeLocationWindows",
+            "type":"command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "where.exe node",
+                "useFirstResult": true,
+            },
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
     # Custom variables that can be provided to the gyp build command
     "variables": {
-        
+        "selected_configuration%": 'RELEASE',
     },
     # Targets you wish to build to; if you just want one output, then one should work
     "targets": [{
@@ -34,6 +34,9 @@
                         'ExceptionHandling': 1,
                     },
                 },
+                "conditions": [
+                    
+                ],
             }],
             ["OS=='mac'", {
                 # mac-specific config; xcode/clang flags, etc
@@ -45,11 +48,17 @@
                     'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
                     'OTHER_CFLAGS': ['-std=c++17', '-mmacosx-version-min=10.13', '-pthread'],
                 },
+                "conditions": [
+                    
+                ],
             }],
             ["OS!='win' and OS!='mac'", {
                 # linux-specific config; gcc flags, etc.
                 "defines": [
                     "_OS_LINUX",
+                ],
+                "conditions": [
+                    
                 ],
             }],
         ],

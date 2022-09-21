@@ -7,8 +7,13 @@
   "commonjs": "index.cjs",
   "scripts": {
     "configure": "node-gyp configure",
+    "configure:dev": "node-gyp configure --selected_configuration=DEBUG",
+    "configure:prod": "pnpm configure",
     "prebuild": "npm run configure",
+    "prebuild:dev": "npm run configure:dev",
     "build": "node-gyp -j 16 build",
+    "build:dev": "node-gyp -j 16 build --debug",
+    "build:prod": "node-gyp -j 16 build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +22,7 @@
   "devDependencies": {
     "nan": "^2.16.0",
     "node-gyp": "^9.1.0",
+    "pnpm": "^7.12.0",
     "vitest": "^0.22.1"
   },
   "packageManager": "yarn@3.2.3"
