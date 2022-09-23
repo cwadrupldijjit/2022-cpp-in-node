@@ -14,6 +14,9 @@
     "build": "node-gyp -j 16 build",
     "build:dev": "node-gyp -j 16 build --debug",
     "build:prod": "node-gyp -j 16 build",
+    "rebuild:dev": "node-gyp -j 16 rebuild --debug",
+    "rebuild:prod": "node-gyp -j 16 rebuild",
+    "clean": "node-gyp clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

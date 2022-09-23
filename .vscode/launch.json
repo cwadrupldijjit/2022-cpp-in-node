@@ -23,6 +23,8 @@
                 "DEBUG": "true"
             }
         },
+        // This configuration can be quite useful if you need to debug the C++ code and the node code--
+        // launch the C++ debugger first and then run this to attach to the Node process
         {
             "name": "Attach debugger to Node",
             "processId": "${command:PickProcess}",
