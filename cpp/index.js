@@ -1,23 +1,19 @@
 import { dirname, join } from 'path';
-import { dlopen } from 'process';
+import { createRequire } from 'module';
 
 // Since __dirname doesn't exist in esm:
 const __dirname = new URL(dirname(import.meta.url)).pathname.slice(process.platform == 'win32' ? 1 : 0);
 
-// it currently only supports commonjs export format, so this is created just so that we can use the default imports
-const importedAddonModule = {
-    exports: {},
-};
+// node addons currently only support being "require"d in CommonJS, so we have to create our own "require" function to grab it
+// the require function will run the dlopen on the node addon so you don't have to
+const require = createRequire(import.meta.url);
 
-dlopen(
-    importedAddonModule,
+export default require(
     join(
         __dirname,
         '..',
         'build',
         process.env.DEBUG == 'true' ? 'Debug' : 'Release',
         'my_node_addon.node',
-    ),
+    )
 );
-
-export default importedAddonModule.exports;
